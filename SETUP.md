@@ -1,59 +1,52 @@
-# ArcadeForge Community Platform — Setup
+# ArcadeForge Community Plus — setup
 
-This version adds:
-- Sign in / sign up with Supabase Auth
-- Online community games
-- AI Forge: describe a game and generate a playable built-in template
-- Game creation cost: 1,000 Forger Coins
-- Playing games: earns Forger Coins + Battle XP
-- Daily login reward: 150 coins + 50 Battle XP once per day
-- VIP: 5,000 coins
-- Battle Pass: 2,500 coins with 10 tiers of coins/cosmetics
-- Online cosmetic shop
-- Admin tag with infinite purchasing power
+## 1. Supabase
+Create a Supabase project.
 
-## 1. Create Supabase
-Create a project at https://supabase.com/.
+## 2. Database
+Open **SQL Editor → New query**, paste the entire `supabase.sql`, and Run it.
 
-## 2. Run the database upgrade
-Open **SQL Editor → New query**.
-Paste the complete `supabase.sql` file and click **Run**.
+## 3. Email/password sign-in
+In Supabase open **Authentication → Providers → Email** and make sure Email is enabled.
+If **Confirm email** is enabled, a new user must click the confirmation email before their first sign-in. For a simple test site, you can disable confirmation in the Auth email settings; for a public site, keep confirmation enabled.
 
-If you already ran the previous ArcadeForge SQL, this file is designed as an upgrade and uses `alter table ... add column if not exists` plus `create or replace function` for the new systems.
+## 4. Connect the website
+Open `app.js` and replace:
 
-## 3. Get your browser keys
-In your Supabase project, find the project URL and **Publishable key**.
-Do NOT use the secret/service-role key in a public website.
+```js
+const SB_URL="YOUR_SUPABASE_URL";
+const SB_KEY="YOUR_SUPABASE_PUBLISHABLE_KEY";
+```
 
-## 4. Edit app.js
-At the top of `app.js`, replace:
+with your Supabase **Project URL** and **Publishable key**. Never put a secret/service-role key in this file.
 
-    const SB_URL="YOUR_SUPABASE_URL";
-    const SB_KEY="YOUR_SUPABASE_PUBLISHABLE_KEY";
+## 5. Upload to GitHub Pages
+Replace your existing `index.html`, `style.css`, and `app.js` in your GitHub repository. Keep `supabase.sql` and this setup file if you want.
 
-with your real Supabase project URL and Publishable key.
+## 6. Admin account
+First create/sign up for the creator account. Then in Supabase SQL Editor run:
 
-## 5. Make the site creator an admin
-First create/sign up for the creator account on ArcadeForge.
-Then in Supabase SQL Editor run:
+```sql
+update public.profiles
+set is_admin=true
+where id=(select id from auth.users where email='YOUR-ADMIN-EMAIL');
+```
 
-    update public.profiles
-    set is_admin=true
-    where id=(select id from auth.users where email='YOUR-ADMIN-EMAIL');
+Only the database decides who is an admin. Admins get infinite coin purchasing/earning power and the ADMIN tag.
 
-Only do this for trusted creator/admin accounts. Admin status is checked by database functions, so normal players cannot give themselves infinite coins from the website.
-
-## 6. Upload to GitHub Pages
-Replace these files in your GitHub repository:
-- index.html
-- style.css
-- app.js
-- supabase.sql
-- SETUP.md
-
-Commit the changes. GitHub Pages will redeploy the site.
-
-## About the AI Forge
-This free GitHub Pages version does not send your prompt to an external AI API. Instead, the browser's built-in generator detects the game idea and maps it to one of ArcadeForge's playable templates. This keeps the site free and avoids exposing an AI API key.
-
-If you later want a true LLM that writes new game code from scratch, add a secure server/edge function and keep the AI provider key off the browser.
+## 7. What is included
+- Email/password sign up and sign in
+- Community games
+- AI Forge using free built-in templates
+- 1,000-coin game creation cost
+- Coins for playing
+- Daily login reward
+- Store with costumes, colours, hats and accessories
+- VIP for 5,000 coins
+- Battle Pass for 2,500 coins
+- Battle Pass XP and rewards
+- Online inventory
+- Profile character designer
+- Equip only items that the player owns
+- Equipped character shown in games
+- Server-side coin/payment rules with Supabase RPCs
