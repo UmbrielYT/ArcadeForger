@@ -2,54 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ArcadeForge Community</title>
+<title>ArcadeForge — Community Game Platform</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="#home"><span class="logo">AF</span>ArcadeForge</a>
-  <nav>
-    <a href="#home">Home</a><a href="#games">Community Games</a><a href="#create">Create</a><a href="#shop">Shop</a><a href="#profile">Profile</a>
-  </nav>
+  <nav><a href="#home">Home</a><a href="#games">Games</a><a href="#create">AI Forge</a><a href="#battlepass">Battle Pass</a><a href="#shop">Shop</a><a href="#profile">Profile</a></nav>
   <div class="account"><span id="coinPill">🪙 0</span><button id="authBtn">Sign in</button></div>
 </header>
 <main>
 <section id="home" class="page">
-  <div class="hero"><div><span class="eyebrow">THE COMMUNITY ARCADE</span><h1>Play it. <span>Forge it.</span> Share it.</h1><p>Discover games made by ArcadeForge players, build your own, customize your character and earn Forger Coins.</p><div class="actions"><a class="primary" href="#games">Explore games</a><a class="secondary" href="#create">Create a game</a></div></div><div class="hero-card"><div class="orb">🎮</div><b id="heroUser">Welcome to ArcadeForge</b><small id="heroSub">Sign in to publish and save your profile</small></div></div>
+  <div class="hero"><div><span class="eyebrow">THE COMMUNITY GAME PLATFORM</span><h1>Play it. <span>Forge it.</span> Share it.</h1><p>Play community games, earn Forger Coins, use the AI Forge to build a game, collect cosmetics and level up your Battle Pass.</p><div class="actions"><a class="primary" href="#games">Explore games</a><a class="secondary" href="#create">🤖 AI Forge</a></div></div><div class="hero-card"><div class="orb">🎮</div><b id="heroUser">Welcome to ArcadeForge</b><small id="heroSub">Sign in to save your profile and earn coins</small></div></div>
   <div class="stats"><div><b id="gameCount">0</b><small>Community games</small></div><div><b id="creatorCount">0</b><small>Creators</small></div><div><b id="playCount">0</b><small>Plays</small></div><div><b id="leaderCount">0</b><small>Players</small></div></div>
-  <h2>Popular this week</h2><div id="featured" class="grid"></div>
+  <div class="featureRow"><div class="feature"><b>🪙 Earn Coins</b><span>Play games and claim your daily reward.</span></div><div class="feature"><b>🤖 AI Forge</b><span>Describe a game and generate a playable version.</span></div><div class="feature"><b>🎟️ Battle Pass</b><span>Unlock coin and cosmetic rewards.</span></div><div class="feature"><b>👑 VIP</b><span>Unlock VIP for 5,000 Forger Coins.</span></div></div>
+  <h2>Popular games</h2><div id="featured" class="grid"></div>
 </section>
 
-<section id="games" class="page">
-  <div class="heading"><div><span class="eyebrow">COMMUNITY</span><h1>Community Games</h1><p>Games published by ArcadeForge creators.</p></div></div>
-  <div class="toolbar"><input id="search" placeholder="Search games or creators…"><select id="sort"><option value="new">Newest</option><option value="plays">Most played</option><option value="likes">Most liked</option></select></div>
-  <div id="gamesGrid" class="grid"></div>
-</section>
+<section id="games" class="page"><div class="heading"><div><span class="eyebrow">COMMUNITY</span><h1>Community Games</h1><p>Games made by ArcadeForge creators.</p></div></div><div class="toolbar"><input id="search" placeholder="Search games or creators…"><select id="sort"><option value="new">Newest</option><option value="plays">Most played</option><option value="likes">Most liked</option></select></div><div id="gamesGrid" class="grid"></div></section>
 
 <section id="create" class="page">
-  <div class="heading"><div><span class="eyebrow">GAME LAB</span><h1>Create & Publish</h1><p>Choose a template, customize it, then publish it to the community.</p></div></div>
+  <div class="heading"><div><span class="eyebrow">AI GAME LAB</span><h1>🤖 AI Forge</h1><p>Describe your idea. ArcadeForge turns it into a playable community game using built-in game templates.</p></div><span class="costBadge">Creation cost: 🪙 1,000</span></div>
   <div class="two">
-    <form id="createForm" class="panel">
-      <label>Game name<input id="gameName" maxlength="40" required placeholder="Neon Challenge"></label>
-      <label>Description<textarea id="gameDesc" maxlength="160" required placeholder="What makes your game fun?"></textarea></label>
-      <label>Template<select id="gameType"><option value="clicker">Crystal Clicker</option><option value="reaction">Reaction Rush</option><option value="memory">Memory Match</option><option value="dodger">Space Dodger</option><option value="snake">Neon Snake</option></select></label>
-      <label>Cover emoji<input id="gameIcon" maxlength="4" value="🎮"></label>
-      <button class="primary wide" type="submit">🚀 Publish to Community</button>
-      <p class="hint">You need an ArcadeForge account to publish. Published games are stored online in your community database.</p>
+    <form id="aiForm" class="panel">
+      <label>Describe your game<textarea id="aiPrompt" maxlength="500" required placeholder="Make a fast space game where the player dodges meteors and tries to survive as long as possible."></textarea></label>
+      <label>Game name<input id="aiName" maxlength="40" placeholder="Leave blank and AI will suggest one"></label>
+      <label>Cover emoji<input id="aiIcon" maxlength="4" value="🤖"></label>
+      <button class="primary wide" type="submit">🤖 Generate My Game — 🪙 1,000</button>
+      <p class="hint">The free version uses an in-browser game generator, so you do not need an AI API key. It converts your description into one of the safe playable ArcadeForge templates.</p>
     </form>
-    <div class="panel preview"><span class="eyebrow">PREVIEW</span><div class="preview-card"><span id="previewIcon">🎮</span><h2 id="previewName">Your Game</h2><p id="previewDesc">Your description appears here.</p></div></div>
+    <div class="panel preview"><span class="eyebrow">AI PREVIEW</span><div id="aiPreview" class="preview-card"><span id="previewIcon">🤖</span><h2 id="previewName">Your AI Game</h2><p id="previewDesc">Describe your idea and the generator will build it here.</p><div id="previewType" class="tag">Waiting for idea…</div></div></div>
   </div>
 </section>
 
-<section id="shop" class="page">
-  <div class="heading"><div><span class="eyebrow">FORGE STORE</span><h1>Shop</h1><p>Cosmetics bought with Forger Coins.</p></div><span class="coinBig">🪙 <b id="shopCoins">0</b></span></div>
-  <div id="shop" class="shopgrid"></div>
-</section>
+<section id="battlepass" class="page"><div class="heading"><div><span class="eyebrow">SEASON 1</span><h1>🎟️ Battle Pass</h1><p>Buy the pass with Forger Coins and unlock coins, hats, outfits and accessories as you play.</p></div><div class="passStatus" id="passStatus">Not owned</div></div><div class="battleTop"><div class="panel"><h2>Season Pass</h2><p>Cost: <b>🪙 2,500</b></p><p id="bpProgress">Sign in to see your progress.</p><button id="buyPass" class="primary">Buy Battle Pass — 🪙 2,500</button></div><div class="panel"><h2>How to level up</h2><p>Playing community games earns Battle XP alongside your Forger Coins.</p><p>Every 100 Battle XP unlocks the next tier.</p></div></div><div id="battleRewards" class="rewardGrid"></div></section>
 
-<section id="profile" class="page">
-  <div id="profileContent" class="panel center"><h1>Sign in to see your profile</h1><button class="primary" id="profileSign">Sign in</button></div>
-</section>
+<section id="shop" class="page"><div class="heading"><div><span class="eyebrow">FORGE STORE</span><h1>🛍️ Shop</h1><p>Costumes, colours, hats, accessories and VIP.</p></div><span class="coinBig">🪙 <b id="shopCoins">0</b></span></div><div id="shopGrid" class="shopgrid"></div></section>
+
+<section id="profile" class="page"><div id="profileContent" class="panel center"><h1>Sign in to see your profile</h1><button class="primary" id="profileSign">Sign in</button></div></section>
 </main>
 
 <div id="authModal" class="modal hidden"><div class="modalCard"><button class="close" data-close>×</button><span class="eyebrow">ARCADEFORGE ACCOUNT</span><h2 id="authTitle">Sign in</h2><form id="authForm"><input id="email" type="email" required placeholder="Email"><input id="password" type="password" required minlength="6" placeholder="Password"><input id="username" maxlength="24" placeholder="Username (for new accounts)"><button class="primary wide" id="authSubmit">Sign in</button></form><button class="link" id="switchAuth">Need an account? Sign up</button><p id="authMsg" class="hint"></p></div></div>
