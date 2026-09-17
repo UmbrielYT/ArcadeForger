@@ -1,96 +1,59 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ArcadeForge - a free browser arcade packed with quick games, challenges and achievements.">
-  <title>ArcadeForge — Free Browser Arcade</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ArcadeForge Community</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div id="toast" class="toast"></div>
-  <header class="topbar">
-    <a class="brand" href="#home" aria-label="ArcadeForge home"><span class="brand-mark">🎮</span> ArcadeForge</a>
-    <nav>
-      <a href="#home">Home</a><a href="#games">Games</a><a href="#challenges">Challenges</a>
-      <a href="#leaderboard">Leaderboard</a><a href="#favorites">Favourites</a>
-    </nav>
-    <div class="top-actions">
-      <button id="themeBtn" class="icon-btn" title="Toggle theme">☾</button>
-      <button id="profileBtn" class="avatar" title="Profile">A</button>
-    </div>
-  </header>
+<header class="topbar">
+  <a class="brand" href="#home"><span class="logo">AF</span>ArcadeForge</a>
+  <nav>
+    <a href="#home">Home</a><a href="#games">Community Games</a><a href="#create">Create</a><a href="#shop">Shop</a><a href="#profile">Profile</a>
+  </nav>
+  <div class="account"><span id="coinPill">🪙 0</span><button id="authBtn">Sign in</button></div>
+</header>
+<main>
+<section id="home" class="page">
+  <div class="hero"><div><span class="eyebrow">THE COMMUNITY ARCADE</span><h1>Play it. <span>Forge it.</span> Share it.</h1><p>Discover games made by ArcadeForge players, build your own, customize your character and earn Forger Coins.</p><div class="actions"><a class="primary" href="#games">Explore games</a><a class="secondary" href="#create">Create a game</a></div></div><div class="hero-card"><div class="orb">🎮</div><b id="heroUser">Welcome to ArcadeForge</b><small id="heroSub">Sign in to publish and save your profile</small></div></div>
+  <div class="stats"><div><b id="gameCount">0</b><small>Community games</small></div><div><b id="creatorCount">0</b><small>Creators</small></div><div><b id="playCount">0</b><small>Plays</small></div><div><b id="leaderCount">0</b><small>Players</small></div></div>
+  <h2>Popular this week</h2><div id="featured" class="grid"></div>
+</section>
 
-  <main>
-    <section id="home" class="hero page-section">
-      <div>
-        <p class="eyebrow">WELCOME TO THE ARCADE</p>
-        <h1>Play. Compete.<br><span>Forge your score.</span></h1>
-        <p class="hero-copy">A fast, free collection of browser games. No downloads, no accounts required.</p>
-        <div class="hero-buttons">
-          <a class="btn primary" href="#games">Browse Games →</a>
-          <button class="btn secondary" id="randomBtn">🎲 Random Game</button>
-        </div>
-      </div>
-      <div class="hero-card">
-        <div class="orb">⚡</div>
-        <h3>Daily challenge</h3>
-        <p id="dailyText">Complete any game today to earn bonus coins.</p>
-        <strong id="dailyStatus">+50 coins</strong>
-      </div>
-    </section>
+<section id="games" class="page">
+  <div class="heading"><div><span class="eyebrow">COMMUNITY</span><h1>Community Games</h1><p>Games published by ArcadeForge creators.</p></div></div>
+  <div class="toolbar"><input id="search" placeholder="Search games or creators…"><select id="sort"><option value="new">Newest</option><option value="plays">Most played</option><option value="likes">Most liked</option></select></div>
+  <div id="gamesGrid" class="grid"></div>
+</section>
 
-    <section class="stats">
-      <div><b id="coinStat">123</b><span>Coins</span></div>
-      <div><b id="playedStat">0</b><span>Games played</span></div>
-      <div><b id="bestStat">0</b><span>Best score</span></div>
-      <div><b id="achievementStat">0</b><span>Achievements</span></div>
-    </section>
-
-    <section id="games" class="page-section">
-      <div class="section-head"><div><p class="eyebrow">GAME LIBRARY</p><h2>Pick your game</h2></div><input id="search" class="search" placeholder="Search games..." aria-label="Search games"></div>
-      <div class="filters" id="filters">
-        <button class="filter active" data-filter="all">All</button>
-        <button class="filter" data-filter="arcade">Arcade</button>
-        <button class="filter" data-filter="puzzle">Puzzle</button>
-        <button class="filter" data-filter="action">Action</button>
-        <button class="filter" data-filter="classic">Classic</button>
-      </div>
-      <div class="game-grid" id="gameGrid"></div>
-    </section>
-
-    <section id="challenges" class="page-section split">
-      <div>
-        <p class="eyebrow">TODAY'S CHALLENGES</p><h2>Three ways to earn</h2>
-        <div class="challenge-list" id="challengeList"></div>
-      </div>
-      <div class="panel">
-        <h3>How ArcadeForge works</h3>
-        <p>Play games directly in your browser. Scores and favourites are saved locally on your device.</p>
-        <ul><li>No account needed</li><li>Works on desktop and mobile</li><li>Free to host on static hosting</li></ul>
-      </div>
-    </section>
-
-    <section id="leaderboard" class="page-section">
-      <p class="eyebrow">LEADERBOARD</p><h2>Local high scores</h2>
-      <div class="leaderboard" id="leaderboardTable"></div>
-    </section>
-
-    <section id="favorites" class="page-section">
-      <p class="eyebrow">FAVOURITES</p><h2>Your saved games</h2>
-      <div class="game-grid" id="favoriteGrid"></div>
-      <p id="noFavs" class="muted">You haven't favourited any games yet.</p>
-    </section>
-  </main>
-
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-box">
-      <button class="close" id="closeModal">×</button>
-      <div id="gameArea"></div>
-    </div>
+<section id="create" class="page">
+  <div class="heading"><div><span class="eyebrow">GAME LAB</span><h1>Create & Publish</h1><p>Choose a template, customize it, then publish it to the community.</p></div></div>
+  <div class="two">
+    <form id="createForm" class="panel">
+      <label>Game name<input id="gameName" maxlength="40" required placeholder="Neon Challenge"></label>
+      <label>Description<textarea id="gameDesc" maxlength="160" required placeholder="What makes your game fun?"></textarea></label>
+      <label>Template<select id="gameType"><option value="clicker">Crystal Clicker</option><option value="reaction">Reaction Rush</option><option value="memory">Memory Match</option><option value="dodger">Space Dodger</option><option value="snake">Neon Snake</option></select></label>
+      <label>Cover emoji<input id="gameIcon" maxlength="4" value="🎮"></label>
+      <button class="primary wide" type="submit">🚀 Publish to Community</button>
+      <p class="hint">You need an ArcadeForge account to publish. Published games are stored online in your community database.</p>
+    </form>
+    <div class="panel preview"><span class="eyebrow">PREVIEW</span><div class="preview-card"><span id="previewIcon">🎮</span><h2 id="previewName">Your Game</h2><p id="previewDesc">Your description appears here.</p></div></div>
   </div>
+</section>
 
-  <footer><b>🎮 ArcadeForge</b><span>Built for the browser · Your data stays on your device</span></footer>
-  <script src="script.js"></script>
-</body>
-</html>
+<section id="shop" class="page">
+  <div class="heading"><div><span class="eyebrow">FORGE STORE</span><h1>Shop</h1><p>Cosmetics bought with Forger Coins.</p></div><span class="coinBig">🪙 <b id="shopCoins">0</b></span></div>
+  <div id="shop" class="shopgrid"></div>
+</section>
+
+<section id="profile" class="page">
+  <div id="profileContent" class="panel center"><h1>Sign in to see your profile</h1><button class="primary" id="profileSign">Sign in</button></div>
+</section>
+</main>
+
+<div id="authModal" class="modal hidden"><div class="modalCard"><button class="close" data-close>×</button><span class="eyebrow">ARCADEFORGE ACCOUNT</span><h2 id="authTitle">Sign in</h2><form id="authForm"><input id="email" type="email" required placeholder="Email"><input id="password" type="password" required minlength="6" placeholder="Password"><input id="username" maxlength="24" placeholder="Username (for new accounts)"><button class="primary wide" id="authSubmit">Sign in</button></form><button class="link" id="switchAuth">Need an account? Sign up</button><p id="authMsg" class="hint"></p></div></div>
+<div id="gameModal" class="modal hidden"><div class="modalCard gameCard"><button class="close" data-close>×</button><div id="gameMount"></div></div></div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body></html>
