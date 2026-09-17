@@ -8,24 +8,33 @@
 </head>
 <body>
 <div class="appShell">
-<aside class="sidebar">
-  <a class="brand" href="#home"><span class="logo">AF</span><span>ArcadeForge</span></a>
-  <div class="sideUser"><div class="miniAvatar" id="sideAvatar">🧑</div><div><b id="sideName">Guest</b><small id="sideCoins">Sign in</small></div></div>
-  <nav class="sideNav">
-    <a href="#home">🏠 <span>Home</span></a>
-    <a href="#games">🎮 <span>Games</span></a>
-    <a href="#create">🤖 <span>AI Forge</span></a>
-    <a href="#shop">🛍️ <span>Store</span></a>
-    <a href="#battlepass">🎟️ <span>Battle Pass</span></a>
-    <a href="#profile">👤 <span>Profile & Character</span></a>
+<aside class="sidebar" id="sidebar">
+  <div class="sideTop">
+    <a class="brand" href="#home" data-page="home"><span class="logo">AF</span><span class="brandText">ArcadeForge</span></a>
+    <button class="collapseBtn" id="collapseSidebar" type="button" aria-label="Collapse sidebar" title="Collapse sidebar">‹</button>
+  </div>
+  <div class="sideUser" data-action="profile" role="button" tabindex="0">
+    <div class="miniAvatar" id="sideAvatar">🧑</div>
+    <div class="sideUserText"><b id="sideName">Guest</b><small id="sideCoins">Sign in</small></div>
+    <span class="chevron">›</span>
+  </div>
+  <div class="sideCoinCard">
+    <div class="coinIcon">🪙</div><div><small>FORGER COINS</small><b id="sideCoinBig">0</b></div>
+  </div>
+  <nav class="sideNav" aria-label="Main navigation">
+    <a href="#home" data-page="home"><span class="navIcon">⌂</span><span class="navText">Home</span></a>
+    <a href="#games" data-page="games"><span class="navIcon">🎮</span><span class="navText">Games</span></a>
+    <a href="#create" data-page="create"><span class="navIcon">🤖</span><span class="navText">AI Forge</span></a>
+    <a href="#shop" data-page="shop"><span class="navIcon">🛍</span><span class="navText">Store</span><span class="navBadge">NEW</span></a>
+    <a href="#battlepass" data-page="battlepass"><span class="navIcon">🎟</span><span class="navText">Battle Pass</span></a>
+    <a href="#profile" data-page="profile"><span class="navIcon">👤</span><span class="navText">Profile</span></a>
   </nav>
   <div class="sideBottom">
-    <div class="coinBox">🪙 <b id="sideCoinBig">0</b><small>Forger Coins</small></div>
-    <button id="authBtn" class="primary wide">Sign in</button>
+    <button id="authBtn" class="primary wide" type="button"><span>↪</span><span class="authText">Sign in</span></button>
   </div>
 </aside>
 <main class="content">
-<header class="mobileTop"><a class="brand" href="#home"><span class="logo">AF</span>ArcadeForge</a><button id="mobileAuth" class="secondary">Sign in</button></header>
+<header class="mobileTop"><button id="mobileMenu" class="secondary menuBtn" type="button">☰ Menu</button><a class="brand" href="#home"><span class="logo">AF</span>ArcadeForge</a><button id="mobileAuth" class="secondary" type="button">Sign in</button></header>
 <section id="home" class="page">
   <div class="hero"><div><span class="eyebrow">THE COMMUNITY GAME PLATFORM</span><h1>Play it. <span>Forge it.</span> Share it.</h1><p>Play community games, earn Forger Coins, forge games with AI, collect cosmetics and build your own character.</p><div class="actions"><a class="primary" href="#games">Explore games</a><a class="secondary" href="#create">🤖 AI Forge</a></div></div><div class="hero-card"><div class="heroAvatar" id="heroAvatar">🧑</div><b id="heroUser">Welcome to ArcadeForge</b><small id="heroSub">Sign in to save your profile and earn coins</small></div></div>
   <div class="stats"><div><b id="gameCount">0</b><small>Community games</small></div><div><b id="creatorCount">0</b><small>Creators</small></div><div><b id="playCount">0</b><small>Plays</small></div><div><b id="leaderCount">0</b><small>Players</small></div></div>
@@ -40,5 +49,5 @@
 </main></div>
 <div id="authModal" class="modal hidden"><div class="modalCard"><button class="close" data-close>×</button><span class="eyebrow">ARCADEFORGE ACCOUNT</span><h2 id="authTitle">Sign in</h2><form id="authForm"><label>Email<input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></label><label>Password<input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="At least 6 characters"></label><label id="usernameWrap">Username<input id="username" maxlength="24" autocomplete="nickname" placeholder="Your ArcadeForge name"></label><button class="primary wide" id="authSubmit">Sign in</button></form><button class="link" id="switchAuth">Need an account? Sign up</button><p id="authMsg" class="hint"></p></div></div>
 <div id="gameModal" class="modal hidden"><div class="modalCard gameCard"><button class="close" data-close>×</button><div id="gameMount"></div></div></div>
-<div id="toast" class="toast"></div><script src="app.js"></script>
+<div id="sidebarBackdrop" class="sidebarBackdrop hidden"></div><div id="toast" class="toast"></div><script src="app.js"></script>
 </body></html>
