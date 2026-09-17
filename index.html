@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ArcadeForge - a free browser arcade packed with quick games, challenges and achievements.">
+  <title>ArcadeForge — Free Browser Arcade</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="ArcadeForge home"><span class="brand-mark">🎮</span> ArcadeForge</a>
+    <nav>
+      <a href="#home">Home</a><a href="#games">Games</a><a href="#challenges">Challenges</a>
+      <a href="#leaderboard">Leaderboard</a><a href="#favorites">Favourites</a>
+    </nav>
+    <div class="top-actions">
+      <button id="themeBtn" class="icon-btn" title="Toggle theme">☾</button>
+      <button id="profileBtn" class="avatar" title="Profile">A</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero page-section">
+      <div>
+        <p class="eyebrow">WELCOME TO THE ARCADE</p>
+        <h1>Play. Compete.<br><span>Forge your score.</span></h1>
+        <p class="hero-copy">A fast, free collection of browser games. No downloads, no accounts required.</p>
+        <div class="hero-buttons">
+          <a class="btn primary" href="#games">Browse Games →</a>
+          <button class="btn secondary" id="randomBtn">🎲 Random Game</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="orb">⚡</div>
+        <h3>Daily challenge</h3>
+        <p id="dailyText">Complete any game today to earn bonus coins.</p>
+        <strong id="dailyStatus">+50 coins</strong>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div><b id="coinStat">123</b><span>Coins</span></div>
+      <div><b id="playedStat">0</b><span>Games played</span></div>
+      <div><b id="bestStat">0</b><span>Best score</span></div>
+      <div><b id="achievementStat">0</b><span>Achievements</span></div>
+    </section>
+
+    <section id="games" class="page-section">
+      <div class="section-head"><div><p class="eyebrow">GAME LIBRARY</p><h2>Pick your game</h2></div><input id="search" class="search" placeholder="Search games..." aria-label="Search games"></div>
+      <div class="filters" id="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="arcade">Arcade</button>
+        <button class="filter" data-filter="puzzle">Puzzle</button>
+        <button class="filter" data-filter="action">Action</button>
+        <button class="filter" data-filter="classic">Classic</button>
+      </div>
+      <div class="game-grid" id="gameGrid"></div>
+    </section>
+
+    <section id="challenges" class="page-section split">
+      <div>
+        <p class="eyebrow">TODAY'S CHALLENGES</p><h2>Three ways to earn</h2>
+        <div class="challenge-list" id="challengeList"></div>
+      </div>
+      <div class="panel">
+        <h3>How ArcadeForge works</h3>
+        <p>Play games directly in your browser. Scores and favourites are saved locally on your device.</p>
+        <ul><li>No account needed</li><li>Works on desktop and mobile</li><li>Free to host on static hosting</li></ul>
+      </div>
+    </section>
+
+    <section id="leaderboard" class="page-section">
+      <p class="eyebrow">LEADERBOARD</p><h2>Local high scores</h2>
+      <div class="leaderboard" id="leaderboardTable"></div>
+    </section>
+
+    <section id="favorites" class="page-section">
+      <p class="eyebrow">FAVOURITES</p><h2>Your saved games</h2>
+      <div class="game-grid" id="favoriteGrid"></div>
+      <p id="noFavs" class="muted">You haven't favourited any games yet.</p>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="close" id="closeModal">×</button>
+      <div id="gameArea"></div>
+    </div>
+  </div>
+
+  <footer><b>🎮 ArcadeForge</b><span>Built for the browser · Your data stays on your device</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
